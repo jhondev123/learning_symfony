@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Listagem de Séries
+{% endblock %}
+
+{% block body %}
+	<h1>Lista de Séries</h1>
+
+	<a href='{{ path('addSeriesForm')}}' class='btn btn-dark my-2'>
+		Adicionar
+	</a>
+	<ul class='list-group '>
+		{% for serie in series %}
+			<li class='list-group-item'>
+				<a>{{ serie.name }}</a>
+			</li>
+		{% endfor %}
+	{% endblock %}
