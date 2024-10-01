@@ -28,7 +28,21 @@ class SeriesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function remove(Series $series, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($series);
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+    public function removeById(int $id, bool $flush = false): void
+    {
+        $series = $this->getEntityManager()->getReference(Series::class, $id);
+        if ($series) {
+            $this->remove($series, $flush);
+        }
 
+    }
 
 
     //    /**

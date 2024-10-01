@@ -7,13 +7,34 @@
 {% block body %}
 	<h1>Lista de Séries</h1>
 
-	<a href='{{ path('addSeriesForm')}}' class='btn btn-dark my-2'>
+	{% if success != null %}
+		<div class='alert alert-success'>
+			{{success}}
+		</div>
+	{% endif %}
+
+
+	<a href='{{ path('app_addSeriesForm')}}' class='btn btn-dark my-2'>
 		Adicionar
 	</a>
 	<ul class='list-group '>
 		{% for serie in series %}
 			<li class='list-group-item'>
-				<a>{{ serie.name }}</a>
+				<div class='d-flex justify-content-between align-items-center'>
+					<p>
+						{{ serie.name }}
+					</p>
+					<div class='d-flex gap-3'>
+						<a href='{{ path('app_updateSeriesForm', {'id': serie.id}) }}' class='btn btn-info'>
+							Editar
+						</a>
+						<form method="post" action="{{ path('app_delete_series', {'id': serie.id}) }}">
+							<input type="hidden" name="_method" value="DELETE">
+							<button class='btn btn-danger' type='submit'>X</button>
+						</form>
+					</div>
+
+				</div>
 			</li>
 		{% endfor %}
 	{% endblock %}

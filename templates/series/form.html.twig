@@ -7,13 +7,23 @@
 {% block body %}
 	<h1>Cadastrar Série</h1>
 
-	<form method='POST'>
-		<div class='mb-3'>
-			<label for='name' class='form-label'>Nome</label>
-			<input type='text' id='name' name='name' class='form-control'>
-		</div>
+	{% if series %}
+		<form method='POST' action="{{path('app_editSeries', {'id': series.id})}}">
+			<input type='hidden' name='_method' value='PUT'>
+			
+		{% else %}
+			<form method='POST' action="{{path('app_addSeries')}}">
+			{% endif %}
 
-		<button type='submit' class='btn btn-dark'>Salvar</button>
-	</form>
+			<div class='mb-3'>
+				<label for='name' class='form-label'>Nome</label>
+				{% if series %}
+					<input type='text' id='name' name='name' class='form-control' value='{{series.name}}'>
+				{% else %}
+					<input type='text' id='name' name='name' class='form-control'>
+				{% endif %}
+			</div>
+			<button type='submit' class='btn btn-dark'>Salvar</button>
+		</form>
 
-{% endblock %}
+	{% endblock %}
